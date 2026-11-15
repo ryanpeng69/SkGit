@@ -8,6 +8,8 @@ import io.github.ryanpeng69.skgit.elements.effects.git.*;
 import io.github.ryanpeng69.skgit.elements.expressions.*;
 import io.github.ryanpeng69.skgit.elements.expressions.git.*;
 import io.github.ryanpeng69.skgit.elements.expressions.git.status.*;
+import io.github.ryanpeng69.skgit.elements.expressions.gitcommit.*;
+import io.github.ryanpeng69.skgit.elements.expressions.personident.*;
 import io.github.ryanpeng69.skgit.elements.expressions.repository.*;
 import io.github.ryanpeng69.skgit.elements.Types;
 
@@ -41,6 +43,13 @@ public class SkGitRegistration {
                 ExprGitRemotes.register(registration);
                 ExprGitBranches.register(registration);
                 ExprGitRepo.register(registration);
+            // gitcommit
+                ExprGitCommitAuthor.register(registration);
+                ExprGitCommitMessage.register(registration);
+                ExprGitCommitTime.register(registration);
+            // personident
+                ExprPersonIdentEmail.register(registration);
+                ExprPersonIdentTimeZoneOffset.register(registration);
             // repository
                 ExprRepoGitInstance.register(registration);
                 ExprRepoHead.register(registration);
@@ -49,7 +58,7 @@ public class SkGitRegistration {
             ExprTypeGitRemote.register(registration);
 
         // Final
-        new Types();
+        Types.register(registration);
         registration.finalizeRegistration();
     }
 }

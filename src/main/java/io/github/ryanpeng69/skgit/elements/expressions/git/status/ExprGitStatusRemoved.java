@@ -22,7 +22,7 @@ public class ExprGitStatusRemoved extends PropertyExpression<Git, String> {
                         These removals will be included in the next commit.
                         The list clears after committing.""")
                 .examples("send removed files of {_git}")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

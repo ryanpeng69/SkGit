@@ -22,8 +22,8 @@ public class ExprRepoHead extends PropertyExpression<Repository, String> {
         reg.newPropertyExpression(ExprRepoHead.class, String.class, "head [name]", "gitrepository")
                 .name("Repository - HEAD")
                 .description("Gets the name of the HEAD of the repository.")
-                .examples("send head of {_repo")
-                .since("1.0")
+                .examples("send head of {_repo}")
+                .since("1.0.0")
                 .register();
     }
 

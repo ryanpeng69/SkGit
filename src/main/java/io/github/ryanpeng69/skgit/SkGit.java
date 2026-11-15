@@ -17,12 +17,13 @@ public class SkGit extends JavaPlugin {
 
     private static SkGit instance;
     public static FileConfiguration config;
+    Registration registration;
 
     @Override
     public void onEnable() {
         instance = this;
 
-        Registration registration = new Registration("skgit", false);
+        registration = new Registration("skgit", false);
         SkGitRegistration.register(registration);
 
         new Metrics(this, 34187);
@@ -73,6 +74,7 @@ public class SkGit extends JavaPlugin {
     }
     public static void throwError(String e) {
         instance.getLogger().severe(e);
-        instance.getServer().broadcast(Component.text("[SkGit] ERROR: "+e).color(NamedTextColor.RED), "op");
+        if (config.getBoolean("send_error_to_ops")) instance.getServer().broadcast(
+                Component.text("[SkGit] ERROR: "+e).color(NamedTextColor.RED), "op");
     }
 }

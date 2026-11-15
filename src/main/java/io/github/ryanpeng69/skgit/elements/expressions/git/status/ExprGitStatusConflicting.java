@@ -23,7 +23,7 @@ public class ExprGitStatusConflicting extends PropertyExpression<Git, String> {
                         Conflicts occur when both local and remote changes modify the same file region,
                         or when one side deletes a file while the other modifies it.""")
                 .examples("send conflicting files of {_git}")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

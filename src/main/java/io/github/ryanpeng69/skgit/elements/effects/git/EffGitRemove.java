@@ -24,16 +24,15 @@ public class EffGitRemove extends Effect {
                         "%git% (remove|rm) [:and delete] (%-strings%|all:all [files])")
                 .name("Git - Remove")
                 .description("""
-                        Unstages files so they won't be committed.
-                        By default, files remain on disk. Use `and delete` to also remove them from disk.
-                        **NOTE**: This effect will not throw any error if the file was not tracked by git.
-                        This effect will not delete the file if it was not tracked.
-                        `{_git} remove all` or `{_git} remove "."` unstages all files.""")
+                        Removes files from Git tracking so they are no longer managed by the repository.
+                        Without `and delete`, the files stay on disk but are no longer tracked.
+                        With `and delete`, the files are removed from both Git tracking and the filesystem.
+                        `{_git} remove all` removes all tracked files.""")
                 .examples("""
                         {_git} remove "plugins/Skript/scripts" and "server.properties"
                         {_git} remove and delete "ops.json"
                         {_git} remove all""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 
@@ -85,11 +84,11 @@ public class EffGitRemove extends Effect {
     @Override
     public String toString(@Nullable Event event, boolean debug) {
         if (shouldDelete) {
-            if (isAll) return "git remove all from "+this.git.getSingle(event);
-            return "git remove "+ Arrays.toString(this.files.getArray(event)) +" from "+this.git.getSingle(event);
+            if (isAll) return "git remove and delete all from "+this.git.getSingle(event);
+            return "git remove and delete "+ Arrays.toString(this.files.getArray(event)) +" from "+this.git.getSingle(event);
         }
-        if (isAll) return "git remove and delete all files from "+this.git.getSingle(event);
-        return "git remove and delete "+ Arrays.toString(this.files.getArray(event)) +" from "+this.git.getSingle(event);
+        if (isAll) return "git remove all files from "+this.git.getSingle(event);
+        return "git remove "+ Arrays.toString(this.files.getArray(event)) +" from "+this.git.getSingle(event);
     }
 
 }

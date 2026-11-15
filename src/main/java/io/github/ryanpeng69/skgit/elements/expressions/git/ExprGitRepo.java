@@ -13,7 +13,7 @@ public class ExprGitRepo extends SimplePropertyExpression<Git, Repository> {
                 .name("Git - Repository")
                 .description("Gets the repository of a Git object.")
                 .examples("set {_repo} to repo of {_git}")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

@@ -22,7 +22,7 @@ public class ExprGitStatusAdded extends PropertyExpression<Git, String> {
                         These files will be included in the next commit.
                         The list clears after committing.""")
                 .examples("send added files of {_git}")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

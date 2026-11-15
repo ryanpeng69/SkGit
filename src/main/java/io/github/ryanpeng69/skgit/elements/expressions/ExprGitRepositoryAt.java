@@ -26,7 +26,7 @@ public class ExprGitRepositoryAt extends SimpleExpression<Repository> {
                         set {_last} to last created git repo
                         set {_at} to git repository at root
                         send whether {_last} is {_at} # true""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

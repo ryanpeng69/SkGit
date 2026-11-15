@@ -21,7 +21,7 @@ public class ExprTypeGitRemote extends SimpleExpression<ExprTypeGitRemote.TypeGi
                 .name("Git Remote")
                 .description("Creates a Git remote instance with the specified name and URI.")
                 .examples("set remote of {_git} to git remote named \"origin\" with uri \"https://github.com/username/reponame.git\"")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

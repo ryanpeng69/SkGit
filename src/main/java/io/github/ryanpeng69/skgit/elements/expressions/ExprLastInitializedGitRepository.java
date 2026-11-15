@@ -19,7 +19,7 @@ public class ExprLastInitializedGitRepository extends SimpleExpression<Repositor
                 .examples("""
                         git init
                         set {_repo} to last created git repository""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

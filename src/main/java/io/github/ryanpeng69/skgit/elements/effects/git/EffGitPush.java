@@ -42,7 +42,7 @@ public class EffGitPush extends Effect {
                         {_git} force push to remote "origin"
                         {_git} push from branch "master" to branch "main" of remote "origin"
                         {_git} push to branch "main" of remote "origin\"""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 
@@ -146,29 +146,29 @@ public class EffGitPush extends Effect {
     @Override
     public String toString(@Nullable Event event, boolean debug) {
         StringBuilder sb = new StringBuilder();
+        sb.append(this.git.getSingle(event)).append(" push");
+        sb.append(" force ");
         if (pushMode == 0) {
-            sb.append("git push");
             if (this.remote != null) {
                 String r = this.remote.getSingle(event);
-                if (r != null) sb.append(" to remote ").append(r);
+                if (r != null) sb.append("to remote ").append(r);
             }
         } else if (pushMode == 1) {
             String from = this.fromBranch.getSingle(event);
             String to = this.toBranch.getSingle(event);
-            sb.append("git push from branch ").append(from).append(" to branch ").append(to);
+            sb.append("from branch ").append(from).append(" to branch ").append(to);
             if (this.remote != null) {
                 String r = this.remote.getSingle(event);
                 if (r != null) sb.append(" of remote ").append(r);
             }
         } else if (pushMode == 2) {
             String branch = this.remoteBranch.getSingle(event);
-            sb.append("git push HEAD to branch ").append(branch);
+            sb.append("HEAD to branch ").append(branch);
             if (this.remote != null) {
                 String r = this.remote.getSingle(event);
                 if (r != null) sb.append(" of remote ").append(r);
             }
         }
-        sb.append(" on ").append(this.git.getSingle(event));
         return sb.toString();
     }
 }

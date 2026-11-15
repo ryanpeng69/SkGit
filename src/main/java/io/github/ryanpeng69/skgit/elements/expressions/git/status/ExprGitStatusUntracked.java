@@ -21,7 +21,7 @@ public class ExprGitStatusUntracked extends PropertyExpression<Git, String> {
                         Gets files not tracked by Git (new or never added).
                         All untracked files appear here unless ignored.""")
                 .examples("send untracked files of {_git}")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

@@ -24,7 +24,7 @@ public class EffGitCommit extends Effect {
                         {_git} commit "Initial commit"
                         {_git} commit "Fix bug" amend
                         {_git} push""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 
@@ -36,7 +36,7 @@ public class EffGitCommit extends Effect {
     @Override
     public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         this.git = (Expression<Git>) expressions[0];
-        if (this.msg != null) this.msg = (Expression<String>) expressions[1];
+        if (expressions.length == 2) this.msg = (Expression<String>) expressions[1];
         this.amend = parseResult.hasTag("amend");
         return true;
     }
@@ -50,7 +50,7 @@ public class EffGitCommit extends Effect {
             git.commit()
                     .setMessage(msg)
                     .setAmend(amend).call();
-            SkGit.logAction("Committed to "+git);
+            SkGit.logAction("Committed to "+git+" with message:\n"+msg);
         } catch (GitAPIException e) {
             SkGit.throwError(e);
         }

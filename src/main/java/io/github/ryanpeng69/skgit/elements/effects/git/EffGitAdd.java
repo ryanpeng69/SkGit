@@ -31,7 +31,7 @@ public class EffGitAdd extends Effect {
                 .examples("""
                         {_git} add "plugins/Skript/scripts" and "server.properties"
                         {_git} add all""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

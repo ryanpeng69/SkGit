@@ -32,7 +32,7 @@ public class EffGitReset extends Effect {
                         {_git} reset mixed and set ref to "origin/main"
                         {_git} reset mixed and set ref to "a1b2c3d"
                         """)
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 
@@ -64,7 +64,7 @@ public class EffGitReset extends Effect {
 
     @Override
     public String toString(@Nullable Event event, boolean debug) {
-        if (newRef == null) return "git reset "+git+" with mode "+ mode.name();
-        return "git reset "+git+" with mode "+ mode +" and change ref to "+newRef;
+        if (newRef == null) return "git reset "+git.getSingle(event)+" with mode "+mode.name();
+        return "git reset "+git.getSingle(event)+" with mode "+mode.name()+" and change ref to "+newRef.getSingle(event);
     }
 }

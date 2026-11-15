@@ -39,7 +39,7 @@ public class EffGitPull extends Effect {
                         {_git} pull from remote "origin" rebase
                         {_git} pull from branch "main" of remote "origin" with strategy ours
                         {_git} pull theirs""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 
@@ -119,7 +119,31 @@ public class EffGitPull extends Effect {
 
     @Override
     public String toString(@Nullable Event event, boolean debug) {
-        return "git pull "+this.git;
+        StringBuilder sb = new StringBuilder("git pull ");
+        if (event != null) {
+            sb.append(this.git.getSingle(event));
+            if (this.branch != null) {
+                String b = this.branch.getSingle(event);
+                if (b != null) sb.append(" from branch ").append(b);
+            }
+            if (this.remote != null) {
+                String r = this.remote.getSingle(event);
+                if (r != null) sb.append(" from remote ").append(r);
+            }
+        } else {
+            sb.append(this.git);
+        }
+        if (this.rebase) {
+            sb.append(" rebase");
+        } else if (this.strategy != null) {
+            if (event != null) {
+                String s = this.strategy.getSingle(event);
+                if (s != null) sb.append(" with strategy ").append(s);
+            } else {
+                sb.append(" with strategy ").append(this.strategy);
+            }
+        }
+        return sb.toString();
     }
 
 }

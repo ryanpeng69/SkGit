@@ -15,7 +15,7 @@ public class CondGitIsClean extends PropertyCondition<Git> {
                 .examples("""
                         set {_git} to git of {_repo}
                         send whether {_git} is clean""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

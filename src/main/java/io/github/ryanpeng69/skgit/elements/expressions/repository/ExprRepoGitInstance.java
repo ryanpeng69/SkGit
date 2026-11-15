@@ -15,7 +15,7 @@ public class ExprRepoGitInstance extends SimplePropertyExpression<Repository, Gi
                         git init
                         set {_repo} to last git repository
                         set {_git} to git of {_repo}""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

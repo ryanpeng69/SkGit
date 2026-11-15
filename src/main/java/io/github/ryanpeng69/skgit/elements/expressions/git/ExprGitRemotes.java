@@ -30,7 +30,7 @@ public class ExprGitRemotes extends PropertyExpression<Git, ExprTypeGitRemote.Ty
                         set remote of {_git} to git remote named "origin" with uri "https://github.com/username/repo1name.git"
                         add git remote named "origin" with uri "https://github.com/username/repo2name.git" to remotes of {_git}
                         set {_remotes::*} to remotes of {_git}""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

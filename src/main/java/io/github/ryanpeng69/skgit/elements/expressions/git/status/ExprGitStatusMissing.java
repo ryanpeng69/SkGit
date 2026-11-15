@@ -21,7 +21,7 @@ public class ExprGitStatusMissing extends PropertyExpression<Git, String> {
                         Gets files tracked by Git that no longer exist on disk.
                         To stage the removal, use `git add` or `{_git} remove and delete <files>`.""")
                 .examples("send missing files of {_git}")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

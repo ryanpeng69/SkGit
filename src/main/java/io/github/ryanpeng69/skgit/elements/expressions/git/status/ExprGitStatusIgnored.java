@@ -21,7 +21,7 @@ public class ExprGitStatusIgnored extends PropertyExpression<Git, String> {
                         Gets files matching `.gitignore` patterns that have never been tracked.
                         For previously tracked files, use `{_git} remove` to untrack them.""")
                 .examples("send ignored files of {_git}")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

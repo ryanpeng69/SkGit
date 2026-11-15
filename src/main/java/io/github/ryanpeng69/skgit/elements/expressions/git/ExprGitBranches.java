@@ -26,7 +26,7 @@ public class ExprGitBranches extends PropertyExpression<Git, String> {
                         set {_branches::*} to branches of {_git}
                         add "feature" to branches of {_git}
                         remove "old-branch" from branches of {_git}""")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 

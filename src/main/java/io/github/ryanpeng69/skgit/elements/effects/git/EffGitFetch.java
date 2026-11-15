@@ -26,7 +26,7 @@ public class EffGitFetch extends Effect {
                         Fetches new commits from a remote repository.
                         **NOTE**: A remote and [Authentication](https://github.com/ryanpeng69/SkGit/wiki/Authentication) must be configured.""")
                 .examples("{_git} fetch", "{_git} fetch from remote \"origin\"")
-                .since("1.0")
+                .since("1.0.0")
                 .register();
     }
 
@@ -71,7 +71,8 @@ public class EffGitFetch extends Effect {
 
     @Override
     public String toString(@Nullable Event event, boolean debug) {
-        return "git fetch "+this.git;
+        if (this.remote != null) return "git fetch "+this.git.getSingle(event)+" from remote "+this.remote.getSingle(event);
+        return "git fetch "+this.git.getSingle(event);
     }
 
 }
