@@ -6,6 +6,10 @@ import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class SkGitCredentialsProvider {
     private static CredentialsProvider provider = null;
@@ -26,7 +30,12 @@ public class SkGitCredentialsProvider {
             SkGit.getInstance().saveResourceToFile("credentials.yml", credentialsFile, false);
         }
 
-        FileConfiguration credConfig = YamlConfiguration.loadConfiguration(credentialsFile);
+        FileConfiguration credConfig;
+        try (FileInputStream fis = new FileInputStream(credentialsFile)) {
+            credConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(fis, StandardCharsets.UTF_8));
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read credentials file: " + credentialsFile, e);
+        }
         String name = credConfig.getString("name", "");
         String password = credConfig.getString("password", "");
         if (name.isEmpty() && password.isEmpty()) {
