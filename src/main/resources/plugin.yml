@@ -1,0 +1,11 @@
+name: SkGit
+description: $description
+prefix: SkGit
+version: '${version}'
+
+main: io.github.ryanpeng69.skgit.SkGit
+api-version: '1.21'
+load: POSTWORLD
+depend: [Skript]
+
+authors: [RyanPeng69]

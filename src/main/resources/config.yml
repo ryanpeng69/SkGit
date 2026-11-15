@@ -1,0 +1,4 @@
+credentials_path: "plugins/SkGit/credentials.yml"
+log:
+  # Whether to log actions such as commit, push, add, rm, etc.
+  actions: true

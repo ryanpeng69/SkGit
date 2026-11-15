@@ -1,0 +1,91 @@
+package io.github.ryanpeng69.skgit.elements;
+
+import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.classes.Parser;
+import ch.njol.skript.lang.ParseContext;
+import ch.njol.skript.registrations.Classes;
+import io.github.ryanpeng69.skgit.elements.expressions.ExprTypeGitRemote;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.revwalk.RevCommit;
+
+public class Types {
+    static {
+        Classes.registerClass(new ClassInfo<>(Repository.class, "gitrepository")
+                .user("git ?repo(?:sitory)?")
+                .name("Git Repository")
+                .description("A Git repository holds all objects and refs used for managing source code history.")
+                .since("1.0")
+                .parser(new Parser<>() {
+                    @Override
+                    public boolean canParse(ParseContext context) {
+                        return false;
+                    }
+                    @Override
+                    public String toString(Repository o, int flags) {
+                        return "git repository at '"+o.getDirectory().getPath()+"'";
+                    }
+                    @Override
+                    public String toVariableNameString(Repository o) {
+                        return "gitrepository_"+o.getDirectory().getPath();
+                    }
+                }));
+        Classes.registerClass(new ClassInfo<>(Git.class, "git")
+                .user("git")
+                .name("Git")
+                .description("Represents a high-level Git command facade for executing operations like add, commit, status, and push.")
+                .since("1.0")
+                .parser(new Parser<>() {
+                    @Override
+                    public boolean canParse(ParseContext context) {
+                        return false;
+                    }
+                    @Override
+                    public String toString(Git o, int flags) {
+                        return "git of repository at '"+o.getRepository().getDirectory().getPath()+"'";
+                    }
+                    @Override
+                    public String toVariableNameString(Git o) {
+                        return "git_"+o.getRepository().getDirectory().getPath();
+                    }
+                }));
+        Classes.registerClass(new ClassInfo<>(ExprTypeGitRemote.TypeGitRemote.class, "gitremote")
+                .user("git ?remote")
+                .name("Git Remote")
+                .description("A type holding the name and URI of a Git remote.")
+                .since("1.0")
+                .parser(new Parser<>() {
+                    @Override
+                    public boolean canParse(ParseContext context) {
+                        return false;
+                    }
+                    @Override
+                    public String toString(ExprTypeGitRemote.TypeGitRemote o, int flags) {
+                        return "git remote '"+o.name()+"' with uri '"+o.uri()+"'";
+                    }
+                    @Override
+                    public String toVariableNameString(ExprTypeGitRemote.TypeGitRemote o) {
+                        return "gitremote_"+o.name();
+                    }
+                }));
+        Classes.registerClass(new ClassInfo<>(RevCommit.class, "gitcommit")
+                .user("git ?commit")
+                .name("Git Commit")
+                .description("Represents a Git commit with its metadata (author, message, hash, parents).")
+                .since("1.0")
+                .parser(new Parser<>() {
+                    @Override
+                    public boolean canParse(ParseContext context) {
+                        return false;
+                    }
+                    @Override
+                    public String toString(RevCommit o, int flags) {
+                        return "git commit "+o.getId().getName()+" with message " + o.getShortMessage();
+                    }
+                    @Override
+                    public String toVariableNameString(RevCommit o) {
+                        return "gitcommit_" + o.getId().getName();
+                    }
+                }));
+    }
+}
