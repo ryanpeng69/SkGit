@@ -1,5 +1,6 @@
 package io.github.ryanpeng69.skgit;
 
+import io.github.ryanpeng69.skgit.features.Updater;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -36,6 +37,16 @@ public class SkGit extends JavaPlugin {
         });
 
         getLogger().info("SkGit enabled");
+
+        Updater.checkUpdate().thenAccept(update -> {
+            if (update == null) {
+                getLogger().severe("Error occurred while checking update");
+            } else if (update.equals("latest")) {
+                getLogger().info("Up to date");
+            } else {
+                getLogger().warning("New release: "+update);
+            }
+        });
     }
 
     public static SkGit getInstance() {
@@ -73,8 +84,8 @@ public class SkGit extends JavaPlugin {
         throwError(e.getMessage());
     }
     public static void throwError(String e) {
-        instance.getLogger().severe(e);
-        if (config.getBoolean("send_error_to_ops")) instance.getServer().broadcast(
+        if (config.getBoolean("send_error.console")) instance.getLogger().severe(e);
+        if (config.getBoolean("send_error.ops")) instance.getServer().broadcast(
                 Component.text("[SkGit] ERROR: "+e).color(NamedTextColor.RED), "op");
     }
 }

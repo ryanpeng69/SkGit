@@ -9,8 +9,10 @@ public class ExprGitCommitMessage extends SimplePropertyExpression<RevCommit, St
     public static void register(Registration reg) {
         reg.newPropertyExpression(ExprGitCommitMessage.class, String.class, "[commit] (message|msg)", "gitcommit")
                 .name("Commit - Message")
-                .description("Gets the message of a commit")
-                .examples("send message of {_commit}")
+                .description("""
+                        Gets the message of a commit.
+                        **NOTE**: when you do `send message of {_commit}`, the syntax conflicts with `(message|send [message[s]]) %objects% [to %audiences%]`""")
+                .examples("send msg of {_commit}")
                 .since("1.0.0")
                 .register();
     }
