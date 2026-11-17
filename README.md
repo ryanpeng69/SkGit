@@ -4,6 +4,10 @@
 ![GitHub Tag](https://img.shields.io/github/v/tag/ryanpeng69/SkGit)
 ![GitHub Issues](https://img.shields.io/github/issues/ryanpeng69/SkGit)
 
+<a href="https://skdocs.org/?addon=SkGit">
+  <img src="https://skdocs.org/viewdocs.png" alt="View SkGit documentation on SkDocs">
+</a>
+
 # SkGit
 SkGit is a [Skript](https://github.com/SkriptLang/Skript) addon that adds git support.
 
@@ -23,7 +27,7 @@ Tested minecraft versions: `1.21.11`, `26.3`
 
 ## Documentations
 
-For syntax documentation, see [SkDocs](https://skdocs.org/docs?addon=SkGit) or [SkriptHub](https://skripthub.net/docs/?addon=SkGit).
+For syntax documentation, see [SkDocs](https://skdocs.org/docs?addon=SkGit).
 
 For other information, see [wiki](https://github.com/ryanpeng69/SkGit/wiki).
 
