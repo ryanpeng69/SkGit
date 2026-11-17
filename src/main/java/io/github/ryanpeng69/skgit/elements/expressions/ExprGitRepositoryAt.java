@@ -41,6 +41,7 @@ public class ExprGitRepositoryAt extends SimpleExpression<Repository> {
         return true;
     }
 
+    @SuppressWarnings("resource")
     @Override
     protected Repository @Nullable [] get(Event event) {
         String path = null;
@@ -49,14 +50,11 @@ public class ExprGitRepositoryAt extends SimpleExpression<Repository> {
             File repoFile = new File(Objects.requireNonNullElse(path, "")).getCanonicalFile();
             if (repoFile.isDirectory()) repoFile = new File(repoFile, ".git");
             if (!repoFile.exists()) return new Repository[0];
-            try (Repository repository = new FileRepositoryBuilder()
+            Repository repository = new FileRepositoryBuilder()
                     .setGitDir(repoFile)
                     .readEnvironment()
-                    .build()) {
-                return new Repository[]{repository};
-            } catch (IOException e) {
-                SkGit.throwError(e);
-            }
+                    .build();
+            return new Repository[]{repository};
         } catch (IOException e) {
             SkGit.throwError(e);
         }

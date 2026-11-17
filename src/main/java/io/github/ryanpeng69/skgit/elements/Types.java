@@ -25,7 +25,7 @@ public class Types {
                     }
                     @Override
                     public String toString(Repository o, int flags) {
-                        return "git repository at '"+o.getDirectory().getPath()+"'";
+                        return "git repository at \""+o.getDirectory().getPath()+"\"";
                     }
                     @Override
                     public String toVariableNameString(Repository o) {
@@ -44,7 +44,7 @@ public class Types {
                     }
                     @Override
                     public String toString(Git o, int flags) {
-                        return "git of repository at '"+o.getRepository().getDirectory().getPath()+"'";
+                        return "git of repository at \""+o.getRepository().getDirectory().getPath()+"\"";
                     }
                     @Override
                     public String toVariableNameString(Git o) {
@@ -63,7 +63,7 @@ public class Types {
                     }
                     @Override
                     public String toString(ExprTypeGitRemote.TypeGitRemote o, int flags) {
-                        return "git remote '"+o.name()+"' with uri '"+o.uri()+"'";
+                        return "git remote \""+o.name()+"\" with uri \""+o.uri()+"\"";
                     }
                     @Override
                     public String toVariableNameString(ExprTypeGitRemote.TypeGitRemote o) {
@@ -82,7 +82,7 @@ public class Types {
                     }
                     @Override
                     public String toString(RevCommit o, int flags) {
-                        return "git commit "+o.getId().getName()+" with message " + o.getShortMessage();
+                        return "git commit "+o.getId().getName()+" with message \"" + o.getShortMessage()+"\"";
                     }
                     @Override
                     public String toVariableNameString(RevCommit o) {
@@ -101,7 +101,7 @@ public class Types {
                     }
                     @Override
                     public String toString(PersonIdent o, int flags) {
-                        return "git user "+o.getName()+" ("+o.getEmailAddress()+")";
+                        return "git user \""+o.getName()+"\" ("+o.getEmailAddress()+")";
                     }
                     @Override
                     public String toVariableNameString(PersonIdent o) {

@@ -10,7 +10,7 @@ public class ExprGitCommitTime extends SimplePropertyExpression<RevCommit, Date>
     public static void register(Registration reg) {
         reg.newPropertyExpression(ExprGitCommitTime.class, Date.class, "[commit] creation (time|date)", "gitcommit")
                 .name("Commit - Time")
-                .description("Gets the time a commit.")
+                .description("Gets the time a commit was created.")
                 .examples("send creation time of {_commit}")
                 .since("1.0.0")
                 .register();
@@ -19,7 +19,7 @@ public class ExprGitCommitTime extends SimplePropertyExpression<RevCommit, Date>
     @Override
     public Date convert(RevCommit commit) {
         if (commit == null) return null;
-        return new Date(commit.getCommitTime());
+        return new Date(commit.getCommitTime() * 1000L);
     }
 
     @Override

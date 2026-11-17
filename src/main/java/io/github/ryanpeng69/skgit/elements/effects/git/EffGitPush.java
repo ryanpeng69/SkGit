@@ -147,7 +147,7 @@ public class EffGitPush extends Effect {
     public String toString(@Nullable Event event, boolean debug) {
         StringBuilder sb = new StringBuilder();
         sb.append(this.git.getSingle(event)).append(" push");
-        sb.append(" force ");
+        if (force) sb.append(" force ");
         if (pushMode == 0) {
             if (this.remote != null) {
                 String r = this.remote.getSingle(event);

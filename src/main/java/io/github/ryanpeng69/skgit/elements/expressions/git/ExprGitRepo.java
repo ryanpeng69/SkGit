@@ -20,8 +20,8 @@ public class ExprGitRepo extends SimplePropertyExpression<Git, Repository> {
     @Override
     public Repository convert(Git git) {
         if (git == null) return null;
-        try (Repository repo = git.getRepository()) {
-            return repo;
+        try {
+            return git.getRepository();
         } catch (Exception e) {
             SkGit.throwError(e);
         }
