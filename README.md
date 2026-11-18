@@ -37,3 +37,8 @@ For other information, see [wiki](https://github.com/ryanpeng69/SkGit/wiki).
     - Git Events
 - Example scripts
 - Git GUI (maybe make Skript soft-depend)
+
+## Reviews
+People on [SkUnity](https://discord.gg/EuB8kMDuGJ) says:
+<img width="1132" height="178" alt="review by novystar" src="https://github.com/user-attachments/assets/d388c2d7-1789-4f26-b3aa-03072bcc9f49" />
+<img width="1132" height="146" alt="review by pro2021ca" src="https://github.com/user-attachments/assets/75a1b39e-03fb-403a-9dca-321997cf408f" />
