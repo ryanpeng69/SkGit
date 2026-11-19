@@ -7,7 +7,6 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
@@ -28,18 +27,20 @@ public class SkGitCredentialsProvider {
             //noinspection ResultOfMethodCallIgnored
             credentialsFile.getParentFile().mkdirs();
             SkGit.getInstance().saveResourceToFile("credentials.yml", credentialsFile, false);
+            SkGit.throwWarning("Could not find credentials.yml, created at "+credentialsFile.getAbsolutePath(), "file_missing");
         }
 
         FileConfiguration credConfig;
         try (FileInputStream fis = new FileInputStream(credentialsFile)) {
             credConfig = YamlConfiguration.loadConfiguration(new InputStreamReader(fis, StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to read credentials file: " + credentialsFile, e);
+        } catch (Exception e) {
+            SkGit.throwError("Failed to read credentials file: "+credentialsFile+"\nCause: "+e.getMessage());
+            return;
         }
         String name = credConfig.getString("name", "");
         String password = credConfig.getString("password", "");
         if (name.isEmpty() && password.isEmpty()) {
-            SkGit.getInstance().getLogger().warning("Credentials was not set, configure it at "+credentialsFile);
+            SkGit.throwWarning("Credentials was not set, configure it at "+credentialsFile, "credentials");
         }
         provider = new UsernamePasswordCredentialsProvider(name, password);
     }

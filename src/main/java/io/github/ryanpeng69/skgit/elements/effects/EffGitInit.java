@@ -13,14 +13,19 @@ import org.jetbrains.annotations.Nullable;
 import java.io.File;
 
 public class EffGitInit extends Effect {
-    private static Repository lastRepository;
+    static Repository lastRepository;
 
     public static void register(Registration reg) {
         reg.newEffect(EffGitInit.class,
-                        "git init[ialize] [(in|at) %-string%]", "init[ialize] git [repository] [(in|at) %-string%]")
+                        "git init[ialize] [(to|at|in) (root [dir[ectory]]|[dir[ectory]] %-string%)]",
+                        "initialize git [(to|at|in) (root [dir[ectory]]|[dir[ectory]] %-string%)]")
                 .name("Git Init")
                 .description("Creates an empty Git repository or reinitialize an existing one. Defaults to the server root directory if no path is specified.")
-                .examples("git init", "initialize git in \"plugins/Skript/scripts\"")
+                .examples("""
+                        git init
+                        initialize git in "plugins/Skript/scripts"
+                        git init at root
+                        git init at {_someVariable} # If the variable is not set, it will also be initialized at root.""")
                 .since("1.0.0")
                 .register();
     }
@@ -30,9 +35,7 @@ public class EffGitInit extends Effect {
     @SuppressWarnings("unchecked")
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
-        if (exprs[0] != null) {
-            this.targetDirectory = (Expression<String>) exprs[0];
-        }
+        this.targetDirectory = (Expression<String>) exprs[0];
         return true;
     }
 
@@ -49,8 +52,7 @@ public class EffGitInit extends Effect {
             SkGit.logAction("Successfully initialized git repository at: "+
                     git.getRepository().getDirectory().getAbsolutePath());
         } catch (Exception e) {
-            SkGit.getInstance().getLogger().severe("Failed to initialize git repository at "+repoDir.getAbsolutePath()+
-                    "\nCause: "+e.getMessage());
+            SkGit.throwError("Failed to initialize git repository at "+repoDir.getAbsolutePath()+"\nCause: "+e.getMessage());
         }
     }
 

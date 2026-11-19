@@ -17,6 +17,7 @@ public class Types {
                 .user("git ?repo(?:sitory)?")
                 .name("Git Repository")
                 .description("A Git repository holds all objects and refs used for managing source code history.")
+                .examples("git repo at root")
                 .since("1.0.0")
                 .parser(new Parser<>() {
                     @Override
@@ -36,6 +37,7 @@ public class Types {
                 .user("git")
                 .name("Git")
                 .description("Represents a high-level Git command facade for executing operations like add, commit, status, and push.")
+                .examples("git of {_repo}")
                 .since("1.0.0")
                 .parser(new Parser<>() {
                     @Override
@@ -55,6 +57,7 @@ public class Types {
                 .user("git ?remote")
                 .name("Git Remote")
                 .description("A type holding the name and URI of a Git remote.")
+                .examples("remotes of {_git}")
                 .since("1.0.0")
                 .parser(new Parser<>() {
                     @Override
@@ -74,6 +77,7 @@ public class Types {
                 .user("git ?commit")
                 .name("Git Commit")
                 .description("Represents a Git commit with its metadata (author, message, hash, parents).")
+                .examples("commits of {_commit}")
                 .since("1.0.0")
                 .parser(new Parser<>() {
                     @Override
@@ -90,9 +94,13 @@ public class Types {
                     }
                 }).register();
         reg.newType(PersonIdent.class, "personident")
-                .user("person ?ident(?:ifier)?|commit author|commit creator")
+                .user("person ?ident(?:ifier)?|commit ?author|commit ?creator|commiter")
                 .name("Person Ident")
                 .description("Represents a Git user that created the commit. Holds the name, email, and time.")
+                .examples("""
+                        set {_author} to author of {_commit}
+                        send name of {_author}
+                        send email of {_author}""")
                 .since("1.0.0")
                 .parser(new Parser<>() {
                     @Override
@@ -107,10 +115,7 @@ public class Types {
                     public String toVariableNameString(PersonIdent o) {
                         return "personident_"+o.getEmailAddress();
                     }
-                }).examples("""
-                        set {_author} to author of {_commit}
-                        send name of {_author}
-                        send email of {_author}""")
+                })
                 .property(Property.NAME, "The name of a person.", new PropHandlerPersonIdentName())
                 .register();
     }

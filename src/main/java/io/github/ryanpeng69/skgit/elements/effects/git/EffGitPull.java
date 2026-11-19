@@ -9,7 +9,6 @@ import io.github.ryanpeng69.skgit.SkGit;
 import io.github.ryanpeng69.skgit.SkGitCredentialsProvider;
 import org.bukkit.event.Event;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.merge.MergeStrategy;
 import org.eclipse.jgit.transport.CredentialsProvider;
@@ -46,7 +45,7 @@ public class EffGitPull extends Effect {
     private Expression<Git> git;
     private Expression<String> branch;
     private Expression<String> remote;
-    private Expression<String> strategy;
+    private MergeStrategy strategy;
     private boolean rebase;
 
     @SuppressWarnings("unchecked")
@@ -55,14 +54,16 @@ public class EffGitPull extends Effect {
         this.git = (Expression<Git>) expressions[0];
         this.rebase = parseResult.hasTag("rebase");
         if (parseResult.hasTag("strategy")) {
-            this.strategy = (Expression<String>) expressions[expressions.length - 1];
+            if (parseResult.hasTag("ours")) {
+                strategy = MergeStrategy.OURS;
+            } else if (parseResult.hasTag("theirs")) {
+                strategy = MergeStrategy.THEIRS;
+            }
         }
         if (matchedPattern == 2 || matchedPattern == 3) {
-            // Patterns 2, 3: pull from branch "%git% pull from branch %string% [[of [the]] [remote] %-string%]"
             this.branch = (Expression<String>) expressions[1];
-            if (this.strategy == null && expressions[2] != null) this.remote = (Expression<String>) expressions[2];
+            this.remote = (Expression<String>) expressions[2];
         } else if (matchedPattern == 4 || matchedPattern == 5) {
-            // Patterns 4, 5: pull from remote "%git% pull from remote %string%"
             this.remote = (Expression<String>) expressions[1];
         }
         return true;
@@ -101,18 +102,11 @@ public class EffGitPull extends Effect {
             if (this.rebase) {
                 pull.setRebase(true);
             } else if (this.strategy != null) {
-                String strat = this.strategy.getSingle(event);
-                if (strat != null) {
-                    switch (strat.toLowerCase()) {
-                        case "ours" -> pull.setStrategy(MergeStrategy.OURS);
-                        case "theirs" -> pull.setStrategy(MergeStrategy.THEIRS);
-                        default -> pull.setStrategy(MergeStrategy.RECURSIVE);
-                    }
-                }
+                pull.setStrategy(this.strategy);
             }
             pull.call();
             SkGit.logAction("Git Pulled from "+remoteName);
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
     }
@@ -136,14 +130,8 @@ public class EffGitPull extends Effect {
         if (this.rebase) {
             sb.append(" rebase");
         } else if (this.strategy != null) {
-            if (event != null) {
-                String s = this.strategy.getSingle(event);
-                if (s != null) sb.append(" with strategy ").append(s);
-            } else {
-                sb.append(" with strategy ").append(this.strategy);
-            }
+            sb.append(" with strategy ").append(this.strategy.getName().toLowerCase());
         }
         return sb.toString();
     }
-
 }

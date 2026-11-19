@@ -37,7 +37,7 @@ public class ExprGitBranches extends PropertyExpression<Git, String> {
             try {
                 git.branchList().call().forEach(ref ->
                         rst.add(ref.getName().replace("refs/heads/", "")));
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
                 SkGit.throwError(e);
             }
         }
@@ -118,7 +118,7 @@ public class ExprGitBranches extends PropertyExpression<Git, String> {
                 }
             }
         } catch (Exception e) {
-            SkGit.getInstance().getLogger().severe(e.getMessage());
+            SkGit.throwError(e);
         }
     }
 

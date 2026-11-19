@@ -88,4 +88,12 @@ public class SkGit extends JavaPlugin {
         if (config.getBoolean("send_error.ops")) instance.getServer().broadcast(
                 Component.text("[SkGit] ERROR: "+e).color(NamedTextColor.RED), "op");
     }
+    public static void throwWarning(String e, String configKey) {
+        if (config.getBoolean("send_warning.warnings."+configKey, true)) throwWarning(e);
+    }
+    public static void throwWarning(String e) {
+        if (config.getBoolean("send_error.console")) instance.getLogger().severe(e);
+        if (config.getBoolean("send_error.ops")) instance.getServer().broadcast(
+                Component.text("[SkGit] ERROR: "+e).color(NamedTextColor.RED), "op");
+    }
 }

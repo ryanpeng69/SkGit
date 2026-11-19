@@ -12,7 +12,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 
 public class ExprGitRepositoryAt extends SimpleExpression<Repository> {
@@ -55,7 +54,7 @@ public class ExprGitRepositoryAt extends SimpleExpression<Repository> {
                     .readEnvironment()
                     .build();
             return new Repository[]{repository};
-        } catch (IOException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
         return new Repository[0];

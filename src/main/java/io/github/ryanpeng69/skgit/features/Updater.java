@@ -16,12 +16,8 @@ public class Updater {
     public static CompletableFuture<String> checkUpdate() {
         return getRemoteVersion().thenApply(remoteStr -> {
             String localStr = SkGit.getInstance().getPluginMeta().getVersion();
-            if (!localStr.matches("[\\d.]+") || !remoteStr.matches("[\\d.]+")) {
-                SkGit.throwError("Failed to check update: version name format is wrong ("+localStr+", "+remoteStr+")");
-                return null;
-            }
-            int local = Integer.parseInt(localStr.replace(".", ""));
-            int remote = Integer.parseInt(remoteStr.replace(".", ""));
+            int local = versionToInt(localStr);
+            int remote = versionToInt(remoteStr);
             return (remote > local) ? remoteStr : "latest";
         }).exceptionally(e -> {
             SkGit.throwError("Failed to check update, "+e.getMessage());
@@ -51,5 +47,10 @@ public class Updater {
                     return CompletableFuture.completedFuture(JsonParser.parseString(response.body())
                             .getAsJsonObject().get("tag_name").getAsString());
                 });
+    }
+    private static int versionToInt(String version) {
+        if (version == null || version.isEmpty()) return 0;
+        version = version.replaceAll("-pre\\d+$", "");
+        return Integer.parseInt(version.replaceAll("\\D+", ""));
     }
 }

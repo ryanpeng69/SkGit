@@ -9,7 +9,6 @@ import io.github.ryanpeng69.skgit.SkGit;
 import org.bukkit.event.Event;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.RmCommand;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -48,9 +47,9 @@ public class EffGitRemove extends Effect {
         this.shouldDelete = parseResult.hasTag("and delete");
         if (matchedPattern == 2) {
             this.git = (Expression<Git>) expressions[0];
-            this.files = expressions.length > 1 ? (Expression<String>) expressions[1] : null;
+            this.files = (Expression<String>) expressions[1];
         } else {
-            this.files = expressions.length > 1 ? (Expression<String>) expressions[0] : null;
+            this.files = (Expression<String>) expressions[0];
             this.git = (Expression<Git>) expressions[1];
         }
         return true;
@@ -76,7 +75,7 @@ public class EffGitRemove extends Effect {
         }
         try {
             rm.setCached(!shouldDelete).call();
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
     }

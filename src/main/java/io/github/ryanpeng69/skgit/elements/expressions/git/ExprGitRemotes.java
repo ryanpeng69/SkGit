@@ -41,7 +41,7 @@ public class ExprGitRemotes extends PropertyExpression<Git, ExprTypeGitRemote.Ty
             try {
                 git.remoteList().call().forEach(remote ->
                         rst.add(new ExprTypeGitRemote.TypeGitRemote(remote.getName(), remote.getURIs().getFirst())));
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
                 SkGit.throwError(e);
             }
         }
@@ -118,7 +118,7 @@ public class ExprGitRemotes extends PropertyExpression<Git, ExprTypeGitRemote.Ty
                 }
             }
         } catch (Exception e) {
-            SkGit.getInstance().getLogger().severe(e.getMessage());
+            SkGit.throwError(e);
         }
     }
 

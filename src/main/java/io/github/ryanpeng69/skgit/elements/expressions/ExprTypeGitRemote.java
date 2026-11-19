@@ -10,8 +10,6 @@ import org.bukkit.event.Event;
 import org.eclipse.jgit.transport.URIish;
 import org.jetbrains.annotations.Nullable;
 
-import java.net.URISyntaxException;
-
 public class ExprTypeGitRemote extends SimpleExpression<ExprTypeGitRemote.TypeGitRemote> {
     public record TypeGitRemote(String name, URIish uri) {}
 
@@ -43,7 +41,7 @@ public class ExprTypeGitRemote extends SimpleExpression<ExprTypeGitRemote.TypeGi
         if (name == null || uri == null || name.isEmpty() || uri.isEmpty()) return new TypeGitRemote[0];
         try {
             return new TypeGitRemote[]{new TypeGitRemote(name, new URIish(uri))};
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
         return new TypeGitRemote[0];

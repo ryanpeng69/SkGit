@@ -9,7 +9,6 @@ import io.github.ryanpeng69.skgit.SkGit;
 import io.github.ryanpeng69.skgit.SkGitCredentialsProvider;
 import org.bukkit.event.Event;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.RemoteConfig;
 import org.jetbrains.annotations.Nullable;
@@ -37,7 +36,7 @@ public class EffGitFetch extends Effect {
     @Override
     public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         this.git = (Expression<Git>) expressions[0];
-        if (expressions.length == 2) this.remote = (Expression<String>) expressions[1];
+        this.remote = (Expression<String>) expressions[1];
         return true;
     }
 
@@ -64,7 +63,7 @@ public class EffGitFetch extends Effect {
                     .setRemote(remoteName)
                     .call();
             SkGit.logAction("Git Fetched from "+remoteName);
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
     }

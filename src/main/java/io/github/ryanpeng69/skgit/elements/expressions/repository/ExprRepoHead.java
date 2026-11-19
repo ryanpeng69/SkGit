@@ -12,7 +12,6 @@ import org.eclipse.jgit.lib.Ref;
 import org.eclipse.jgit.lib.Repository;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class ExprRepoHead extends PropertyExpression<Repository, String> {
             try {
                 Ref ref = repo.findRef(Constants.HEAD);
                 if (ref != null) list.add(ref.getName());
-            } catch (IOException e) {
+            } catch (Exception e) {
                 SkGit.throwError(e);
             }
         }

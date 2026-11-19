@@ -59,24 +59,19 @@ public class EffGitPush extends Effect {
     public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         this.git = (Expression<Git>) expressions[0];
         if (matchedPattern == 0 || matchedPattern == 1) {
-            // Patterns 0, 1: simple push "%git% push" / "git push %git%"
             this.pushMode = 0;
         } else if (matchedPattern == 2 || matchedPattern == 3) {
-            // Patterns 2, 3: branch-to-branch push "from [[the] branch] %string% to [[the] branch] %string% [of [the [remote]] %string%]"
             this.pushMode = 1;
             this.fromBranch = (Expression<String>) expressions[1];
             this.toBranch = (Expression<String>) expressions[2];
-            if (expressions[3] != null) this.remote = (Expression<String>) expressions[3];
+            this.remote = (Expression<String>) expressions[3];
         } else if (matchedPattern == 4 || matchedPattern == 5) {
-            // Patterns 4, 5: push to remote "%git% push to remote %string%"
             this.pushMode = 0;
             this.remote = (Expression<String>) expressions[1];
         } else if (matchedPattern == 6 || matchedPattern == 7) {
-            // Patterns 6, 7: push to branch "%git% push to branch %string% [of [the [remote]] %string%]"
-            // Pushes local HEAD to the specified remote branch
             this.pushMode = 2;
             this.remoteBranch = (Expression<String>) expressions[1];
-            if (expressions[2] != null) this.remote = (Expression<String>) expressions[2];
+            this.remote = (Expression<String>) expressions[2];
         }
         this.force = parseResult.hasTag("force");
         return true;

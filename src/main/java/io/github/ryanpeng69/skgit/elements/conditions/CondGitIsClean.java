@@ -4,7 +4,6 @@ import ch.njol.skript.conditions.base.PropertyCondition;
 import com.github.shanebeee.skr.Registration;
 import io.github.ryanpeng69.skgit.SkGit;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 
 public class CondGitIsClean extends PropertyCondition<Git> {
 
@@ -23,7 +22,7 @@ public class CondGitIsClean extends PropertyCondition<Git> {
     public boolean check(Git git) {
         try {
             return git.status().call().isClean();
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
             return false;
         }

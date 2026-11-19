@@ -8,7 +8,6 @@ import com.github.shanebeee.skr.Registration;
 import io.github.ryanpeng69.skgit.SkGit;
 import org.bukkit.event.Event;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.jetbrains.annotations.Nullable;
 
 public class EffGitCommit extends Effect {
@@ -36,7 +35,7 @@ public class EffGitCommit extends Effect {
     @Override
     public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         this.git = (Expression<Git>) expressions[0];
-        if (expressions.length == 2) this.msg = (Expression<String>) expressions[1];
+        this.msg = (Expression<String>) expressions[1];
         this.amend = parseResult.hasTag("amend");
         return true;
     }
@@ -51,7 +50,7 @@ public class EffGitCommit extends Effect {
                     .setMessage(msg)
                     .setAmend(amend).call();
             SkGit.logAction("Committed to "+git+" with message:\n"+msg);
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
     }

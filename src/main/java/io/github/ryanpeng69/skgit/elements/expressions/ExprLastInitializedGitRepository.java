@@ -13,9 +13,11 @@ import org.jetbrains.annotations.Nullable;
 public class ExprLastInitializedGitRepository extends SimpleExpression<Repository> {
     public static void register(Registration reg) {
         reg.newSimpleExpression(ExprLastInitializedGitRepository.class, Repository.class,
-                        "last [created|initialized] [git] repo[sitory]")
+                        "last [created|initialized|cloned] [git] repo[sitory]")
                 .name("Last Initialized Git Repository")
-                .description("Gets the most recently initialized Git repository (from the `git init` effect).")
+                .description("""
+                        Gets the most recently initialized or cloned Git repository. (from the `git init` or `git clone` effect)
+                        This will become none after restart.""")
                 .examples("""
                         git init
                         set {_repo} to last created git repository""")

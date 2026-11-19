@@ -8,7 +8,6 @@ import com.github.shanebeee.skr.Registration;
 import io.github.ryanpeng69.skgit.SkGit;
 import org.bukkit.event.Event;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class ExprGitStatusIgnored extends PropertyExpression<Git, String> {
         for (Git git : source) {
             try {
                 rst.addAll(git.status().call().getIgnoredNotInIndex());
-            } catch (GitAPIException e) {
+            } catch (Exception e) {
                 SkGit.throwError(e);
             }
         }

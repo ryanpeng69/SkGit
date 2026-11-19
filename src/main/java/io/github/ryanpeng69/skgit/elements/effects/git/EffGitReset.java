@@ -9,7 +9,6 @@ import io.github.ryanpeng69.skgit.SkGit;
 import org.bukkit.event.Event;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.ResetCommand;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.jetbrains.annotations.Nullable;
 
 /** @see io.github.ryanpeng69.skgit.elements.expressions.repository.ExprRepoHead */
@@ -44,7 +43,7 @@ public class EffGitReset extends Effect {
     @Override
     public boolean init(Expression<?>[] expressions, int matchedPattern, Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         git = (Expression<Git>) expressions[0];
-        if (expressions.length == 2) newRef = (Expression<String>) expressions[1];
+        newRef = (Expression<String>) expressions[1];
         mode = ResetCommand.ResetType.valueOf(parseResult.tags.getFirst().toUpperCase());
         return true;
     }
@@ -57,7 +56,7 @@ public class EffGitReset extends Effect {
             ResetCommand cmd = git.reset().setMode(mode);
             if (newRef != null) cmd.setRef(newRef.getSingle(event));
             cmd.call();
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
     }

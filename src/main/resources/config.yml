@@ -5,3 +5,11 @@ log:
 send_error:
   console: true
   ops: true
+send_warning:
+  console: true
+  ops: true
+  warnings:
+    # File could not be found (`credentials.yml`, `git add`, and `git remove`
+    file_missing: true
+    # Credentials is invalid (name and password are empty)
+    credentials: true

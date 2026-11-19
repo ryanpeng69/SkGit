@@ -9,7 +9,6 @@ import io.github.ryanpeng69.skgit.SkGit;
 import org.bukkit.event.Event;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.GitAPIException;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -45,9 +44,9 @@ public class EffGitAdd extends Effect {
         this.isAll = parseResult.hasTag("all");
         if (matchedPattern == 2) {
             this.git = (Expression<Git>) expressions[0];
-            this.files = expressions.length > 1 ? (Expression<String>) expressions[1] : null;
+            this.files = (Expression<String>) expressions[1];
         } else {
-            this.files = expressions.length > 1 ? (Expression<String>) expressions[0] : null;
+            this.files = (Expression<String>) expressions[0];
             this.git = (Expression<Git>) expressions[1];
         }
         return true;
@@ -65,7 +64,7 @@ public class EffGitAdd extends Effect {
             for (String file : this.files.getArray(event)) {
                 File fileObj = new File(file);
                 if (!fileObj.exists()) {
-                    SkGit.getInstance().getLogger().warning("File does not exist: "+file);
+                    SkGit.throwWarning("File does not exist: "+file, "file_missing");
                     continue;
                 }
                 File workTree = git.getRepository().getWorkTree();
@@ -77,7 +76,7 @@ public class EffGitAdd extends Effect {
         }
         try {
             add.call();
-        } catch (GitAPIException e) {
+        } catch (Exception e) {
             SkGit.throwError(e);
         }
     }
