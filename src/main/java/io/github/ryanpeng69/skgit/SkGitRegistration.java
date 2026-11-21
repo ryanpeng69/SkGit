@@ -21,6 +21,7 @@ public class SkGitRegistration {
         // Effects
             // git
                 EffGitAdd.register(registration);
+                EffGitCheckout.register(registration);
                 EffGitCommit.register(registration);
                 EffGitFetch.register(registration);
                 EffGitPull.register(registration);

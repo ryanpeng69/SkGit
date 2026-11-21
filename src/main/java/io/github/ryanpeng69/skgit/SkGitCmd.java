@@ -27,7 +27,9 @@ public class SkGitCmd {
                             " <gray>| </gray>" +
                             "<click:open_url:'https://modrinth.com/plugin/SkGit'><yellow>Modrinth<reset>" +
                             " <gray>| </gray>" +
-                            "<click:open_url:'https://skdocs.org/docs?addon=SkGit'><yellow>SkDocs<reset>"
+                            "<click:open_url:'https://skdocs.org/docs?addon=SkGit'><yellow>SkDocs<reset>" +
+                            " <gray>| </gray>" +
+                            "<click:open_url:'https://skripthub.net/docs/?addon=SkGit'><yellow>SkriptHub<reset>"
                     );
                     sender.sendRichMessage("<gray><st>                                                                ");
                     return 1;

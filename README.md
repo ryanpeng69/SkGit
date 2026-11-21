@@ -4,11 +4,13 @@
 ![GitHub Tag](https://img.shields.io/github/v/tag/ryanpeng69/SkGit)
 ![GitHub Issues](https://img.shields.io/github/issues/ryanpeng69/SkGit)
 
-<a href="https://skdocs.org/?addon=SkGit">
-  <img src="https://skdocs.org/viewdocs.png" alt="View SkGit documentation on SkDocs">
-</a>
+[![SkDocsViewTheDocs](https://skdocs.org/viewdocs.png)](https://skdocs.org/?addon=SkGit)
+[![SkriptHubViewTheDocs](https://skripthub.net/static/addon/ViewTheDocsButton.png)](https://skripthub.net/docs/?addon=SkGit)
+[![Available on Modrinth](https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/available/modrinth_vector.svg)
+](https://modrinth.com/plugin/SkGit)
 
-# SkGit
+# <img src="https://cdn.modrinth.com/data/Po4umx0G/fbe514aa6cb56c32169734ad4e0999f8c7f48765.png" alt="Icon" width="30"> SkGit
+
 SkGit is a [Skript](https://github.com/SkriptLang/Skript) addon that adds git support.
 
 No git installation required, suitable for both local host and host providers.
@@ -25,15 +27,19 @@ the least requirement for `2.15` is `1.21`.
 
 Tested minecraft versions: `1.21.11`, `26.3`
 
+TLDR:
+- `PaperMC 1.21+` (any version that supports the skript version)
+- `Skript 2.15+`
+
 ## Documentations
 
-For syntax documentation, see [SkDocs](https://skdocs.org/docs?addon=SkGit).
+For syntax documentation, see [SkDocs](https://skdocs.org/docs?addon=SkGit) or [SkriptHub](https://skripthub.net/docs/?addon=SkGit).
 
 For other information, see [wiki](https://github.com/ryanpeng69/SkGit/wiki).
 
 ## Future Features
 - Syntax
-    - Git Actions
+    - GitHub Actions Generator
     - Git Events
 - Example scripts
 - Git GUI (maybe make Skript soft-depend)
