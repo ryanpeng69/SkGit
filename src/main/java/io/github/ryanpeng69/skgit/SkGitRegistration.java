@@ -28,6 +28,7 @@ public class SkGitRegistration {
                 EffGitPush.register(registration);
                 EffGitRemove.register(registration);
                 EffGitReset.register(registration);
+                EffGitStash.register(registration);
             EffGitClone.register(registration);
             EffGitInit.register(registration);
 

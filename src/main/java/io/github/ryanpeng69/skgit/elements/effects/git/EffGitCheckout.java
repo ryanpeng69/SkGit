@@ -35,7 +35,7 @@ public class EffGitCheckout extends Effect {
                         {_git} checkout to branch "main"
                         {_git} checkout -b "feature"
                         {_git} checkout files "README.md" and "plugins/Skript/config.sk\"""")
-                .since("1.0.0")
+                .since("1.0.1")
                 .register();
     }
 
